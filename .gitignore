@@ -1,0 +1,57 @@
+## Build output
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Rider
+.idea/
+
+## VS Code
+.vscode/
+
+## ASP.NET Secrets
+secrets.json
+**/secrets/
+
+## Logs
+*.log
+
+## NuGet
+*.nupkg
+packages/
+.nuget/
+
+## Auto-generated files
+Generated_Code/
+*.generated.cs
+
+## Publish output
+publish/
+wwwroot/
+
+## Environment files
+.env
+*.db
+
+## EF Core tools
+Migrations/
+
+## SQLite or local DB
+*.db
+*.sqlite
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## JWT/Certs/Keys (nếu có)
+*.pfx
+*.pem
+*.key
+*.crt
