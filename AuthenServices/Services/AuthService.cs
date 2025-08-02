@@ -1,4 +1,5 @@
 ﻿using AuthenServices.Data;
+using AuthenServices.DTOs;
 using AuthenServices.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -32,20 +33,28 @@ namespace AuthenServices.Services
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
 
-        public string GenerateToken(Users user)
+        public string GenerateToken(Users user , List<string> domains, EmployeeInfoDto empInfo)
         {
             var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim("MaNV", user.MaNV ?? ""),
-                new Claim(ClaimTypes.Name, user.HoTen)
+                new Claim(ClaimTypes.Name, user.HoTen),
+                new Claim("PhongBan", empInfo.phongban ?? ""),
+                new Claim("TinhTrangLamViec", empInfo.tinhtranglamviec ?? ""),
+                new Claim("TenKip", empInfo.tenkip),
+                new Claim("ToLamViec", empInfo.tolamviec),
+                new Claim("PhanXuong", empInfo.phanxuong),
             };
-
+            foreach (var domain in domains)
+            {
+                claims.Add(new Claim("Domain", domain));
+            }
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
