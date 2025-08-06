@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services
 //builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("MyDb"));
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddHttpClient<EmployeeService>();
 
 // Đăng ký DbContext sử dụng connection string từ cấu hình
 builder.Services.AddDbContext<AppDbContext>(options =>

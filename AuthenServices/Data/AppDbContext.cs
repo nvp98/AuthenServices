@@ -9,4 +9,8 @@ public class AppDbContext : DbContext
         : base(options) { }
 
     public DbSet<Users> Users => Set<Users>();
+
+    public DbSet<UserDomains> UserDomains => Set<UserDomains>();
+
+    public DbSet<Domains> Domains => Set<Domains>();
 }
